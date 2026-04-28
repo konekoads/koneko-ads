@@ -1,0 +1,102 @@
+---
+import { HERO }     from '@content/hero'
+import CtaButton    from './ui/CtaButton.astro'
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden pt-16"
+  aria-label="Hero — propuesta de valor principal"
+>
+  <!-- Fondo: gradiente radial + grid CSS — sin JS -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    aria-hidden="true"
+  >
+    <!-- Grid sutil -->
+    <div class="absolute inset-0 hero-grid opacity-30"></div>
+    <!-- Gradiente radial centrado en violeta oscuro -->
+    <div class="absolute inset-0 hero-radial"></div>
+    <!-- Viñeta perimetral -->
+    <div class="absolute inset-0 bg-gradient-to-b from-koneko-bg via-transparent to-koneko-bg"></div>
+  </div>
+
+  <div class="relative z-10 max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-section-mobile lg:py-section-desktop">
+
+    <!-- Logo -->
+    <div class="mb-8 flex justify-center">
+      <!-- Reemplazar con logo animado final -->
+      <div
+        class="w-20 h-20 rounded-2xl border-2 border-koneko-neon/60 flex items-center justify-center bg-koneko-card shadow-lg shadow-koneko-neon/10"
+        aria-label="Logo Koneko Ads"
+      >
+        <span class="font-display font-bold text-2xl">
+          <span class="text-koneko-neon">K</span><span class="text-koneko-primary">A</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Badge -->
+    <div class="mb-6 flex justify-center">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-koneko-primary/40 bg-koneko-primary/10 text-koneko-primary-light text-xs font-semibold tracking-wide uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-koneko-primary animate-pulse" aria-hidden="true"></span>
+        {HERO.badge}
+      </span>
+    </div>
+
+    <!-- Headline H1 -->
+    <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-koneko-text leading-tight mb-6 max-w-4xl mx-auto">
+      {HERO.headline}
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="text-lg sm:text-xl text-koneko-text-muted leading-relaxed mb-10 max-w-2xl mx-auto whitespace-pre-line">
+      {HERO.subheadline}
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <CtaButton
+        href={HERO.ctaPrimary.href}
+        label={HERO.ctaPrimary.label}
+        variant="primary"
+        class="text-base px-8 py-4 animate-pulse-glow"
+      />
+      <CtaButton
+        href={HERO.ctaSecondary.href}
+        label={HERO.ctaSecondary.label}
+        variant="outline"
+        class="text-base px-8 py-4"
+      />
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-16 flex justify-center" aria-hidden="true">
+      <div class="flex flex-col items-center gap-2 text-koneko-text-muted text-xs">
+        <span class="tracking-widest uppercase">Scroll</span>
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" class="animate-bounce">
+          <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="8" cy="8" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-radial {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      rgba(124, 58, 237, 0.12) 0%,
+      rgba(34, 211, 238, 0.04) 40%,
+      transparent 70%
+    );
+  }
+</style>

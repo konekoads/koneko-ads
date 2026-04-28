@@ -1,0 +1,33 @@
+---
+import { SITE } from '@content/site'
+const year = new Date().getFullYear()
+---
+
+<footer class="border-t border-koneko-border bg-koneko-bg-alt" role="contentinfo">
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+
+      <!-- Marca -->
+      <div class="text-center md:text-left">
+        <p class="font-display font-semibold text-lg">
+          <span class="text-koneko-neon">K</span>oneko
+          <span class="text-koneko-primary">Ads</span>
+        </p>
+        <p class="text-sm text-koneko-text-muted mt-1">
+          Marketing Digital e IA · Fundado por {SITE.founder}
+        </p>
+      </div>
+
+      <!-- Links legales -->
+      <nav aria-label="Navegación legal" class="flex items-center gap-6 text-sm text-koneko-text-muted">
+        <a href="mailto:info@konekoads.com" class="hover:text-koneko-text transition-colors">
+          {SITE.email}
+        </a>
+      </nav>
+    </div>
+
+    <p class="mt-8 text-center text-xs text-koneko-text-muted">
+      © {year} {SITE.name}. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>

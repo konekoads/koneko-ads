@@ -1,0 +1,107 @@
+---
+import { PROCESS_SECTION, PROCESS_STEPS, type ProcessStep } from '@content/process'
+import SectionLabel from './ui/SectionLabel.astro'
+import CtaButton    from './ui/CtaButton.astro'
+
+/** SVG paths inline de Lucide Icons — sin dependencia npm */
+const ICONS: Record<ProcessStep['icon'], string> = {
+  'settings2': `
+    <path d="M20 7h-9"/>
+    <path d="M14 17H5"/>
+    <circle cx="17" cy="17" r="3"/>
+    <circle cx="7" cy="7" r="3"/>
+  `,
+  'scan-search': `
+    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+    <circle cx="12" cy="12" r="3"/>
+    <path d="m16 16-1.9-1.9"/>
+  `,
+  'pen-line': `
+    <path d="M12 20h9"/>
+    <path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>
+  `,
+  'trending-up': `
+    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+    <polyline points="16 7 22 7 22 13"/>
+  `,
+}
+---
+
+<section
+  id="proceso"
+  class="bg-koneko-bg-alt py-section-mobile lg:py-section-desktop"
+  aria-labelledby="process-heading"
+>
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Encabezado -->
+    <div class="text-center mb-16">
+      <SectionLabel text={PROCESS_SECTION.eyebrow} />
+      <h2
+        id="process-heading"
+        class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-koneko-text mt-4 max-w-3xl mx-auto"
+      >
+        {PROCESS_SECTION.headline}
+      </h2>
+    </div>
+
+    <!-- Grid de cards -->
+    <div
+      class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      role="list"
+    >
+      {PROCESS_STEPS.map((step, i) => (
+        <article
+          role="listitem"
+          class="group relative bg-koneko-card border border-koneko-border rounded-2xl p-6 hover:border-koneko-primary/60 transition-all duration-300 hover:shadow-lg hover:shadow-koneko-primary/10"
+        >
+          <!-- Número de paso -->
+          <div
+            class="absolute top-4 right-4 text-xs font-bold text-koneko-border group-hover:text-koneko-primary/40 transition-colors"
+            aria-hidden="true"
+          >
+            0{i + 1}
+          </div>
+
+          <!-- Ícono Lucide inline -->
+          <div
+            class="w-12 h-12 rounded-xl bg-koneko-primary/10 border border-koneko-primary/20 flex items-center justify-center mb-5 group-hover:bg-koneko-primary/20 transition-colors"
+            aria-hidden="true"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#7C3AED"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              set:html={ICONS[step.icon]}
+            />
+          </div>
+
+          <h3 class="font-display font-semibold text-lg text-koneko-text mb-3">
+            {step.title}
+          </h3>
+          <p class="text-sm text-koneko-text-muted leading-relaxed">
+            {step.body}
+          </p>
+        </article>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-14 text-center">
+      <CtaButton
+        href={PROCESS_SECTION.cta.href}
+        label={PROCESS_SECTION.cta.label}
+        variant="primary"
+        class="uppercase tracking-wide text-sm"
+      />
+    </div>
+  </div>
+</section>

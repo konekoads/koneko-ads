@@ -1,0 +1,28 @@
+---
+import BaseLayout    from '@layouts/BaseLayout.astro'
+import Header        from '@components/Header.astro'
+import Hero          from '@components/Hero.astro'
+import Partners      from '@components/Partners.astro'
+import Problem       from '@components/Problem.astro'
+import Process       from '@components/Process.astro'
+import Metrics       from '@components/Metrics.astro'
+import Testimonials  from '@components/Testimonials.astro'
+import Cta           from '@components/Cta.astro'
+import Footer        from '@components/Footer.astro'
+---
+
+<BaseLayout>
+  <Header />
+
+  <main id="main-content">
+    <Hero />
+    <Partners />
+    <Problem />
+    <Process />
+    <Metrics />
+    <Testimonials />
+    <Cta />
+  </main>
+
+  <Footer />
+</BaseLayout>

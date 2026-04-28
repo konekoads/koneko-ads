@@ -1,0 +1,57 @@
+---
+import { SITE } from '@content/site'
+import SectionLabel from './ui/SectionLabel.astro'
+---
+
+<section
+  id="contacto"
+  class="bg-koneko-bg py-section-mobile lg:py-section-desktop"
+  aria-labelledby="cta-heading"
+>
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl border border-koneko-primary/30 bg-koneko-card overflow-hidden p-8 sm:p-12 lg:p-16 text-center">
+
+      <!-- Fondo decorativo -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-koneko-primary/8 via-transparent to-koneko-neon/4 pointer-events-none"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-koneko-primary to-transparent"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10">
+        <SectionLabel text="EMPIEZA HOY" />
+
+        <h2
+          id="cta-heading"
+          class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-koneko-text mt-4 mb-4 max-w-2xl mx-auto"
+        >
+          Descubre por qué tu negocio no está convirtiendo al máximo
+        </h2>
+
+        <p class="text-lg text-koneko-text-muted mb-10 max-w-xl mx-auto">
+          Auditoría gratuita. Sin compromiso. Resultados en 24 horas.
+        </p>
+
+        <a
+          href={SITE.ctaHref}
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-koneko-primary hover:bg-koneko-primary-light text-white font-semibold text-base transition-all duration-200 shadow-xl shadow-koneko-primary/30 hover:shadow-koneko-primary/50 hover:scale-[1.02]"
+        >
+          {SITE.ctaLabel}
+        </a>
+
+        <p class="mt-6 text-xs text-koneko-text-muted">
+          ¿Prefieres escribir directamente?
+          <a
+            href="mailto:info@konekoads.com"
+            class="text-koneko-primary-light hover:text-koneko-text transition-colors underline underline-offset-2 ml-1"
+          >
+            info@konekoads.com
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

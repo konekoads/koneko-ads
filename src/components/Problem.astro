@@ -1,0 +1,96 @@
+---
+import { PROBLEM_SECTION, PROBLEMS } from '@content/problem'
+import SectionLabel from './ui/SectionLabel.astro'
+import CtaButton    from './ui/CtaButton.astro'
+---
+
+<section
+  id="servicios"
+  class="bg-koneko-bg py-section-mobile lg:py-section-desktop"
+  aria-labelledby="problem-heading"
+>
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Encabezado -->
+    <div class="text-center mb-16">
+      <SectionLabel text={PROBLEM_SECTION.eyebrow} />
+      <h2
+        id="problem-heading"
+        class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-koneko-text mt-4 mb-4"
+      >
+        {PROBLEM_SECTION.headline}
+      </h2>
+      <p class="text-lg text-koneko-text-muted max-w-xl mx-auto">
+        {PROBLEM_SECTION.subtitle}
+      </p>
+    </div>
+
+    <!-- Layout dos columnas -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Columna izquierda: problemas -->
+      <div class="flex flex-col gap-8">
+        {PROBLEMS.map((item, i) => (
+          <article class="flex gap-4">
+            <!-- Número decorativo -->
+            <div
+              class="flex-shrink-0 w-8 h-8 rounded-full border border-koneko-primary/40 flex items-center justify-center text-xs font-bold text-koneko-primary"
+              aria-hidden="true"
+            >
+              {i + 1}
+            </div>
+            <div>
+              <h3 class="font-display font-semibold text-xl text-koneko-text mb-2">
+                {item.title}
+              </h3>
+              <p class="text-koneko-text-muted leading-relaxed">
+                {item.body}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Columna derecha: imagen / placeholder -->
+      <div class="relative">
+        <div
+          class="rounded-2xl border border-koneko-primary/30 bg-koneko-card overflow-hidden aspect-[4/3] flex items-center justify-center"
+          role="img"
+          aria-label={PROBLEM_SECTION.image.alt}
+        >
+          <!-- Placeholder hasta tener imagen real -->
+          <!-- Reemplazar con: <img src={PROBLEM_SECTION.image.src} alt={PROBLEM_SECTION.image.alt} ... /> -->
+          <div class="text-center px-8 pointer-events-none select-none">
+            <div class="w-16 h-16 rounded-full border-2 border-koneko-primary/40 flex items-center justify-center mx-auto mb-4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-koneko-primary" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+            <p class="text-sm text-koneko-text-muted">
+              Diagrama de arquitectura de adquisición
+            </p>
+            <p class="text-xs text-koneko-border mt-2">
+              /public/images/arquitectura-diagrama.png
+            </p>
+          </div>
+          <!-- Decoración de fondo -->
+          <div class="absolute inset-0 bg-gradient-to-br from-koneko-primary/5 to-koneko-neon/5 pointer-events-none" aria-hidden="true"></div>
+        </div>
+
+        <!-- Glow decorativo -->
+        <div class="absolute -inset-1 rounded-2xl bg-koneko-primary/10 blur-xl -z-10" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-16 text-center">
+      <CtaButton
+        href={PROBLEM_SECTION.cta.href}
+        label={PROBLEM_SECTION.cta.label}
+        variant="primary"
+        class="uppercase tracking-wide text-sm"
+      />
+    </div>
+  </div>
+</section>

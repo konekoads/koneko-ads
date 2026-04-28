@@ -1,0 +1,15 @@
+---
+interface Props {
+  text: string
+}
+const { text } = Astro.props
+---
+
+<p
+  class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-koneko-primary"
+  aria-label={`Sección: ${text}`}
+>
+  <span class="w-4 h-px bg-koneko-primary" aria-hidden="true"></span>
+  {text}
+  <span class="w-4 h-px bg-koneko-primary" aria-hidden="true"></span>
+</p>

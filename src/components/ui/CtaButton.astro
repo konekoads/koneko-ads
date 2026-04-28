@@ -1,0 +1,26 @@
+---
+interface Props {
+  href:    string
+  label:   string
+  variant?: 'primary' | 'outline'
+  class?:   string
+}
+
+const {
+  href,
+  label,
+  variant = 'primary',
+  class: extraClass = '',
+} = Astro.props
+
+const base    = 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-koneko-primary focus-visible:ring-offset-2 focus-visible:ring-offset-koneko-bg'
+const primary = 'bg-koneko-primary hover:bg-koneko-primary-light text-white shadow-lg hover:shadow-koneko-primary/25'
+const outline = 'border border-koneko-border hover:border-koneko-primary text-koneko-text-muted hover:text-koneko-text bg-transparent'
+---
+
+<a
+  href={href}
+  class={`${base} ${variant === 'primary' ? primary : outline} ${extraClass}`}
+>
+  {label}
+</a>

@@ -1,0 +1,108 @@
+---
+import { SITE } from '@content/site'
+
+const NAV_LINKS = [
+  { label: 'Servicios',    href: '#servicios' },
+  { label: 'Proceso',      href: '#proceso' },
+  { label: 'Resultados',   href: '#resultados' },
+  { label: 'Testimonios',  href: '#testimonios' },
+]
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 border-b border-koneko-border/50 backdrop-blur-md bg-koneko-bg/80"
+  role="banner"
+>
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo / nombre -->
+      <a
+        href="/"
+        class="font-display font-700 text-xl text-koneko-text hover:text-koneko-primary-light transition-colors duration-200"
+        aria-label="Koneko Ads — inicio"
+      >
+        <span class="text-koneko-neon">K</span>oneko
+        <span class="text-koneko-primary">Ads</span>
+      </a>
+
+      <!-- Navegación desktop -->
+      <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-8">
+        {NAV_LINKS.map(link => (
+          <a
+            href={link.href}
+            class="text-sm font-medium text-koneko-text-muted hover:text-koneko-text transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- CTA header -->
+      <a
+        href={SITE.ctaHref}
+        class="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg bg-koneko-primary hover:bg-koneko-primary-light text-white transition-colors duration-200"
+      >
+        Auditoría gratuita
+      </a>
+
+      <!-- Hamburger mobile -->
+      <button
+        id="menu-toggle"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Abrir menú de navegación"
+        class="md:hidden p-2 rounded-lg text-koneko-text-muted hover:text-koneko-text transition-colors"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú mobile -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-koneko-border bg-koneko-bg"
+    role="dialog"
+    aria-label="Menú de navegación"
+  >
+    <nav class="flex flex-col gap-1 px-4 py-4">
+      {NAV_LINKS.map(link => (
+        <a
+          href={link.href}
+          class="px-3 py-2 rounded-lg text-sm font-medium text-koneko-text-muted hover:text-koneko-text hover:bg-koneko-card transition-colors duration-200"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={SITE.ctaHref}
+        class="mt-2 px-4 py-2 text-sm font-semibold rounded-lg bg-koneko-primary hover:bg-koneko-primary-light text-white text-center transition-colors duration-200"
+      >
+        Auditoría gratuita
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')
+  const menu   = document.getElementById('mobile-menu')
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false
+    toggle.setAttribute('aria-expanded', String(open))
+  })
+
+  // Cerrar al hacer clic en un enlace
+  menu?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden')
+      toggle?.setAttribute('aria-expanded', 'false')
+    })
+  })
+</script>

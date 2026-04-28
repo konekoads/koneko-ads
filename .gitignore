@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.output/
+
+# Astro generated
+.astro/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Claude Code
+.claude/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,44 @@
+---
+import { PARTNERS, PARTNERS_SECTION } from '@content/partners'
+---
+
+<section
+  id="plataformas"
+  class="border-y border-koneko-border bg-koneko-bg-alt"
+  aria-label="Plataformas y herramientas"
+>
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <p class="text-center text-xs font-semibold tracking-widest uppercase text-koneko-text-muted mb-10">
+      {PARTNERS_SECTION.label}
+    </p>
+
+    <div
+      class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-16"
+      role="list"
+      aria-label="Plataformas con las que trabaja Koneko Ads"
+    >
+      {PARTNERS.map(partner => (
+        <div
+          role="listitem"
+          class="flex flex-col items-center gap-2 group"
+        >
+          <div class="opacity-50 group-hover:opacity-100 transition-opacity duration-300 grayscale group-hover:grayscale-0 filter">
+            <!-- Simple Icons via CDN — sin dependencia npm -->
+            <img
+              src={`https://cdn.simpleicons.org/${partner.icon}/ffffff`}
+              alt={partner.name}
+              width="36"
+              height="36"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <span class="text-xs text-koneko-text-muted group-hover:text-koneko-text transition-colors duration-200">
+            {partner.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koneko Ads — Lead Machine</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #18181f;
+  --surface3: #1e1e28;
+  --border: #252530;
+  --border2: #2e2e3d;
+  --purple: #6B21A8;
+  --purple2: #7c3aed;
+  --purple3: #a855f7;
+  --purple-glow: rgba(124,58,237,0.25);
+  --blue: #1d4ed8;
+  --blue2: #3b82f6;
+  --text: #ececf1;
+  --text2: #9999aa;
+  --text3: #555566;
+  --green: #22c55e;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --orange: #f97316;
+  --cyan: #06b6d4;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 600px 400px at 10% 0%, rgba(107,33,168,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 90% 100%, rgba(29,78,216,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { position:relative; z-index:1; max-width:1300px; margin:0 auto; padding:0 20px; }
+
+/* ── HEADER ── */
+header {
+  padding: 28px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo { display:flex; align-items:center; gap:14px; }
+
+.logo-mark {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple2) 100%);
+  border-radius: 12px;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 22px;
+  box-shadow: 0 0 24px var(--purple-glow), 0 0 60px rgba(107,33,168,0.1);
+}
+
+.logo-info { display:flex; flex-direction:column; gap:3px; }
+.logo-name { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+.logo-name em { color: var(--purple3); font-style:normal; }
+.logo-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.kpis { display:flex; gap:20px; flex-wrap:wrap; }
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  min-width: 80px;
+}
+
+.kpi-n {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.kpi-l {
+  font-size: 10px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 5px;
+  width: fit-content;
+}
+
+.tab {
+  padding: 9px 20px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  background: var(--purple2);
+  color: white;
+  box-shadow: 0 0 16px var(--purple-glow);
+}
+
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* ── CARDS / PANELS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--purple3);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── SEARCH ── */
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.inp {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 13px 16px;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inp:focus {
+  border-color: var(--purple2);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+}
+
+.inp::placeholder { color: var(--text3); }
+.inp-main { flex:1; min-width:220px; }
+.inp-sm { width: 80px; }
+
+.btn {
+  padding: 13px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.btn-purple {
+  background: var(--purple2);
+  color: white;
+  box-shadow: 0 0 20px rgba(124,58,237,0.3);
+}
+.btn-purple:hover {
+  background: var(--purple3);
+  box-shadow: 0 0 28px rgba(168,85,247,0.4);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover { border-color: var(--purple3); color: var(--purple3); }
+
+.btn-red {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid rgba(239,68,68,0.25);
+}
+.btn-red:hover { background: rgba(239,68,68,0.08); }
+
+.btn-sm { padding: 8px 14px; font-size: 12px; }
+
+/* ── RESULTS GRID ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.result-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.result-card:hover {
+  border-color: var(--purple2);
+  transform: translateY(-2px);
+}
+
+.result-card.added {
+  border-color: var(--green);
+  opacity: 0.6;
+}
+
+.result-name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.result-addr {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.result-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface3);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+.meta-pill.green { background: rgba(34,197,94,0.1); color: var(--green); border-color: rgba(34,197,94,0.2); }
+.meta-pill.yellow { background: rgba(245,158,11,0.1); color: var(--yellow); border-color: rgba(245,158,11,0.2); }
+.meta-pill.blue { background: rgba(59,130,246,0.1); color: var(--blue2); border-color: rgba(59,130,246,0.2); }
+
+.result-actions { display:flex; gap:8px; margin-top:auto; }
+
+.add-btn {
+  flex:1;
+  padding: 9px 0;
+  border-radius: 8px;
+  border: none;
+  background: var(--purple2);
+  color: white;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-btn:hover { background: var(--purple3); }
+.add-btn.added-btn { background: var(--surface3); color: var(--green); cursor: default; }
+
+.maps-btn {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: flex; align-items:center;
+}
+
+.maps-btn:hover { border-color: var(--blue2); color: var(--blue2); }
+
+/* Loading */
+.loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 48px;
+  color: var(--text2);
+}
+
+.loading.show { display: flex; }
+
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border2);
+  border-top-color: var(--purple3);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 48px;
+  color: var(--text2);
+}
+
+.no-results.show { display: block; }
+
+/* ── PIPELINE TABLE ── */
+.pipeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.fpill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fpill.active, .fpill:hover {
+  border-color: var(--purple3);
+  color: var(--purple3);
+  background: rgba(168,85,247,0.08);
+}
+
+.tbl-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 780px;
+}
+
+th {
+  padding: 12px 14px;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  white-space: nowrap;
+}
+
+td {
+  padding: 13px 14px;
+  border-bottom: 1px solid rgba(37,37,48,0.5);
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(124,58,237,0.03); }
+
+.tname { font-weight: 700; font-size: 14px; }
+.tcity { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+.phone-a {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--blue2);
+  text-decoration: none;
+}
+.phone-a:hover { color: var(--purple3); }
+
+.ext-a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 11px;
+  transition: all 0.2s;
+  margin: 2px;
+}
+
+.ext-a:hover { border-color: var(--purple3); color: var(--purple3); }
+
+/* status badges */
+.sbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.sdot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+
+.s-nuevo      { background:rgba(85,85,102,0.2);  color:var(--text2); }
+.s-nuevo .sdot      { background:var(--text3); }
+.s-contactado { background:rgba(59,130,246,0.12); color:var(--blue2); }
+.s-contactado .sdot { background:var(--blue2); }
+.s-respondio  { background:rgba(245,158,11,0.12); color:var(--yellow); }
+.s-respondio .sdot  { background:var(--yellow); }
+.s-reunion    { background:rgba(34,197,94,0.12);  color:var(--green); }
+.s-reunion .sdot    { background:var(--green); }
+.s-cerrado    { background:rgba(168,85,247,0.15); color:var(--purple3); }
+.s-cerrado .sdot    { background:var(--purple3); }
+.s-descartado { background:rgba(239,68,68,0.08);  color:var(--red); }
+.s-descartado .sdot { background:var(--red); }
+
+.ssel {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.notes-td {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text2);
+}
+
+.icon-btn {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  display: flex; align-items:center; justify-content:center;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.icon-btn:hover { border-color: var(--purple3); color: var(--purple3); }
+.icon-btn.del:hover { border-color: var(--red); color: var(--red); }
+
+.empty {
+  padding: 56px 24px;
+  text-align: center;
+  color: var(--text2);
+}
+.empty-ico { font-size: 44px; margin-bottom: 14px; }
+.empty-t { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.empty-s { font-size: 13px; }
+
+/* ── EMAIL TAB ── */
+.email-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.fg { display:flex; flex-direction:column; gap:6px; }
+.fg.full { grid-column: span 2; }
+
+.flabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text2);
+}
+
+textarea.inp {
+  resize: vertical;
+  min-height: 120px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.template-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tpl-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tpl-btn:hover, .tpl-btn.active {
+  border-color: var(--purple3);
+  color: var(--purple3);
+  background: rgba(168,85,247,0.08);
+}
+
+.preview-box {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text2);
+  white-space: pre-wrap;
+  margin-bottom: 16px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+/* ── MODAL ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.overlay.open { display:flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+}
+
+.modal-x {
+  position: absolute;
+  top:14px; right:14px;
+  background: none; border: none;
+  color: var(--text2); cursor: pointer; font-size:18px;
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: var(--surface);
+  border: 1px solid var(--purple2);
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 300;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+  box-shadow: 0 0 24px var(--purple-glow);
+}
+.toast.show { transform:translateY(0); opacity:1; }
+
+/* Bottom bar */
+.bottom-bar {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface2);
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media (max-width:640px) {
+  .email-form { grid-template-columns:1fr; }
+  .fg.full { grid-column:span 1; }
+  .kpis { gap:10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="hd">
+      <div class="logo">
+        <div class="logo-mark">🐱</div>
+        <div class="logo-info">
+          <div class="logo-name">Koneko <em>Ads</em></div>
+          <div class="logo-tag">Lead Machine v2.0</div>
+        </div>
+      </div>
+      <div class="kpis">
+        <div class="kpi">
+          <span class="kpi-n" id="k-total">0</span>
+          <span class="kpi-l">Total</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-n" style="color:var(--blue2)" id="k-contactados">0</span>
+          <span class="kpi-l">Contactados</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-n" style="color:var(--yellow)" id="k-respondieron">0</span>
+          <span class="kpi-l">Respondieron</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-n" style="color:var(--green)" id="k-reuniones">0</span>
+          <span class="kpi-l">Reuniones</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-n" style="color:var(--purple3)" id="k-cerrados">0</span>
+          <span class="kpi-l">Cerrados</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('buscar', this)">🔍 Buscar talleres</button>
+    <button class="tab" onclick="switchTab('pipeline', this)">📋 Pipeline</button>
+    <button class="tab" onclick="switchTab('email', this)">✉️ Email outreach</button>
+  </div>
+
+  <!-- TAB: BUSCAR -->
+  <div class="tab-panel active" id="tab-buscar">
+    <div class="card">
+      <div class="card-title">// Búsqueda con Google Places</div>
+      <div class="search-row">
+        <input class="inp inp-main" id="cityInp" type="text" placeholder="Ciudad o provincia — ej: Sevilla, Zaragoza, Valencia...">
+        <input class="inp inp-sm" id="limitInp" type="number" value="10" min="1" max="20" placeholder="10">
+        <button class="btn btn-purple" onclick="searchTalleres()">
+          <span>Buscar talleres</span>
+        </button>
+      </div>
+      <div style="font-size:12px; color:var(--text3);">El número indica cuántos resultados traer (máx 20). Usa la API key de Google Places.</div>
+    </div>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <span>Buscando talleres en Google Places...</span>
+    </div>
+
+    <div class="no-results" id="noResults">
+      <div style="font-size:36px;margin-bottom:12px;">🔧</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;">Sin resultados</div>
+      <div>Prueba con otra ciudad o revisa tu API key</div>
+    </div>
+
+    <div class="results-grid" id="resultsGrid"></div>
+  </div>
+
+  <!-- TAB: PIPELINE -->
+  <div class="tab-panel" id="tab-pipeline">
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div style="padding:20px 20px 0;">
+        <div class="pipeline-header">
+          <div class="card-title" style="margin:0;">// Pipeline de talleres</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" onclick="exportCSV()">📥 CSV</button>
+            <button class="btn btn-red btn-sm" onclick="clearAll()">🗑 Borrar todo</button>
+          </div>
+        </div>
+        <div class="filter-pills" style="margin-bottom:16px;">
+          <button class="fpill active" onclick="setFilter('todos',this)">Todos</button>
+          <button class="fpill" onclick="setFilter('nuevo',this)">Sin contactar</button>
+          <button class="fpill" onclick="setFilter('contactado',this)">Contactados</button>
+          <button class="fpill" onclick="setFilter('respondio',this)">Respondieron</button>
+          <button class="fpill" onclick="setFilter('reunion',this)">Reunión</button>
+          <button class="fpill" onclick="setFilter('cerrado',this)">Cerrados</button>
+        </div>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Taller</th>
+              <th>Teléfono</th>
+              <th>Canales</th>
+              <th>Estado</th>
+              <th>Notas</th>
+              <th>Fecha</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="pipelineTbody"></tbody>
+        </table>
+        <div id="emptyPipeline" class="empty" style="display:none;">
+          <div class="empty-ico">🐱</div>
+          <div class="empty-t">Pipeline vacío</div>
+          <div class="empty-s">Busca talleres y añádelos desde la pestaña Buscar</div>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <span style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;">PLANTILLA WHATSAPP:</span>
+        <button class="btn btn-ghost btn-sm" onclick="copyWA()">📋 Copiar mensaje DM</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: EMAIL -->
+  <div class="tab-panel" id="tab-email">
+    <div class="card">
+      <div class="card-title">// Generar email de captación</div>
+
+      <div style="margin-bottom:14px;">
+        <div class="flabel" style="margin-bottom:8px;">Plantilla base</div>
+        <div class="template-btns">
+          <button class="tpl-btn active" onclick="setTemplate('frio',this)">Email frío</button>
+          <button class="tpl-btn" onclick="setTemplate('seguimiento',this)">Seguimiento</button>
+          <button class="tpl-btn" onclick="setTemplate('propuesta',this)">Propuesta directa</button>
+        </div>
+      </div>
+
+      <div class="email-form">
+        <div class="fg">
+          <label class="flabel">Nombre del taller</label>
+          <input class="inp" id="e-taller" type="text" placeholder="Taller López">
+        </div>
+        <div class="fg">
+          <label class="flabel">Nombre del dueño (si lo sabes)</label>
+          <input class="inp" id="e-dueno" type="text" placeholder="Juan (opcional)">
+        </div>
+        <div class="fg">
+          <label class="flabel">Ciudad</label>
+          <input class="inp" id="e-ciudad" type="text" placeholder="Barcelona">
+        </div>
+        <div class="fg">
+          <label class="flabel">Email destino</label>
+          <input class="inp" id="e-destino" type="email" placeholder="taller@email.com">
+        </div>
+        <div class="fg full">
+          <label class="flabel">Observación personalizada (opcional)</label>
+          <input class="inp" id="e-obs" type="text" placeholder="ej: tienen muchas reseñas positivas, activos en Instagram...">
+        </div>
+      </div>
+
+      <button class="btn btn-purple" onclick="generateEmail()" style="margin-bottom:16px;">
+        ✨ Generar email personalizado
+      </button>
+
+      <div id="emailPreview" style="display:none;">
+        <div class="card-title" style="margin-bottom:10px;">// Vista previa</div>
+        <div style="margin-bottom:8px;">
+          <span style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;">ASUNTO: </span>
+          <span id="emailSubject" style="font-size:13px;font-weight:700;"></span>
+        </div>
+        <div class="preview-box" id="emailBody"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-purple" onclick="openGmail()">📧 Abrir en Gmail</button>
+          <button class="btn btn-ghost" onclick="copyEmail()">📋 Copiar email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- Modal notas -->
+<div class="overlay" id="notesOverlay">
+  <div class="modal">
+    <button class="modal-x" onclick="closeNotes()">✕</button>
+    <div style="font-size:16px;font-weight:800;margin-bottom:16px;">📝 Notas del taller</div>
+    <textarea class="inp" id="notesArea" style="width:100%;min-height:100px;resize:vertical;" placeholder="Observaciones, contexto, próximo paso..."></textarea>
+    <div style="margin-top:14px;display:flex;gap:10px;">
+      <button class="btn btn-purple" onclick="saveNotes()">Guardar</button>
+      <button class="btn btn-ghost" onclick="closeNotes()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──
+const API_KEY = 'AIzaSyCQWYjTMrzEDXe1LwGYWOtrCOqWmrW7RM8';
+const PROXY   = 'https://cors-anywhere.herokuapp.com/';
+
+// ── STATE ──
+let leads = JSON.parse(localStorage.getItem('koneko-leads-v2') || '[]');
+let filter = 'todos';
+let editingId = null;
+let currentTemplate = 'frio';
+let addedPlaceIds = new Set(leads.map(l => l.placeId).filter(Boolean));
+
+const STATUS_LABELS = {
+  nuevo: 'Sin contactar',
+  contactado: 'Contactado',
+  respondio: 'Respondió',
+  reunion: 'Reunión 📅',
+  cerrado: 'Cerrado ✓',
+  descartado: 'Descartado'
+};
+
+// ── TABS ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── SEARCH ──
+async function searchTalleres() {
+  const city = document.getElementById('cityInp').value.trim();
+  if (!city) { toast('⚠️ Escribe una ciudad'); return; }
+
+  const limit = Math.min(parseInt(document.getElementById('limitInp').value) || 10, 20);
+
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('noResults').classList.remove('show');
+  document.getElementById('resultsGrid').innerHTML = '';
+
+  try {
+    const query = encodeURIComponent(`taller mecanico ${city} España`);
+    // Usamos Places Text Search (nueva API)
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&language=es&key=${API_KEY}`;
+
+    // Necesitamos proxy para evitar CORS desde HTML local
+    const res = await fetch(PROXY + url);
+    const data = await res.json();
+
+    document.getElementById('loading').classList.remove('show');
+
+    if (!data.results || data.results.length === 0) {
+      document.getElementById('noResults').classList.add('show');
+      return;
+    }
+
+    const places = data.results.slice(0, limit);
+    renderResults(places, city);
+
+  } catch(err) {
+    document.getElementById('loading').classList.remove('show');
+    // Fallback: intentar sin proxy
+    tryDirectSearch(city, limit);
+  }
+}
+
+async function tryDirectSearch(city, limit) {
+  document.getElementById('loading').classList.add('show');
+  try {
+    const query = encodeURIComponent(`taller mecanico ${city} España`);
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&language=es&key=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    document.getElementById('loading').classList.remove('show');
+
+    if (!data.results || data.results.length === 0) {
+      document.getElementById('noResults').classList.add('show');
+      return;
+    }
+    renderResults(data.results.slice(0, limit), city);
+  } catch(e) {
+    document.getElementById('loading').classList.remove('show');
+    showApiError(city, limit);
+  }
+}
+
+function showApiError(city, limit) {
+  // Si hay problema CORS, mostramos links directos de búsqueda + formulario manual
+  const grid = document.getElementById('resultsGrid');
+  const q = encodeURIComponent(`taller mecanico ${city} España`);
+  grid.innerHTML = `
+    <div style="grid-column:1/-1; background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:24px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:8px;color:var(--yellow);">⚠️ CORS bloqueado — búsqueda directa no disponible desde archivo local</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Para usar la API en local necesitas un servidor. Mientras tanto, usa estos links para buscar talleres manualmente y añádelos abajo:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+        <a href="https://www.google.com/maps/search/${q}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(52,168,83,0.1);color:#34a853;border:1px solid rgba(52,168,83,0.2);text-decoration:none;font-size:12px;font-weight:700;">📍 Google Maps</a>
+        <a href="https://www.google.com/search?q=${q}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(66,133,244,0.1);color:#4285f4;border:1px solid rgba(66,133,244,0.2);text-decoration:none;font-size:12px;font-weight:700;">🔍 Google</a>
+        <a href="https://www.paginasamarillas.es/search/talleres-mecanicos/all-ma/${encodeURIComponent(city)}/1/" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(245,158,11,0.1);color:var(--yellow);border:1px solid rgba(245,158,11,0.2);text-decoration:none;font-size:12px;font-weight:700;">📒 Páginas Amarillas</a>
+        <a href="https://www.infocif.es/buscar?q=taller+mecanico+${encodeURIComponent(city)}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(168,85,247,0.1);color:var(--purple3);border:1px solid rgba(168,85,247,0.2);text-decoration:none;font-size:12px;font-weight:700;">🏢 Infocif</a>
+      </div>
+
+      <div style="font-size:12px;font-family:'Space Mono',monospace;color:var(--purple3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">// Añadir taller manualmente</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;">
+        <input class="inp" id="m-nombre" placeholder="Nombre del taller *">
+        <input class="inp" id="m-ciudad" placeholder="Ciudad" value="${city}">
+        <input class="inp" id="m-telefono" placeholder="Teléfono">
+        <input class="inp" id="m-instagram" placeholder="@instagram">
+        <input class="inp" id="m-web" placeholder="Web">
+      </div>
+      <input class="inp" id="m-notas" placeholder="Notas" style="width:100%;margin-bottom:12px;">
+      <button class="btn btn-purple" onclick="addManual()">＋ Añadir al pipeline</button>
+    </div>
+  `;
+}
+
+function renderResults(places, city) {
+  const grid = document.getElementById('resultsGrid');
+  grid.innerHTML = places.map(p => {
+    const isAdded = addedPlaceIds.has(p.place_id);
+    const rating = p.rating ? `<span class="meta-pill yellow">⭐ ${p.rating} (${p.user_ratings_total || 0})</span>` : '';
+    const open = p.opening_hours 
+      ? (p.opening_hours.open_now ? `<span class="meta-pill green">Abierto</span>` : `<span class="meta-pill" style="color:var(--red)">Cerrado</span>`)
+      : '';
+    const mapsUrl = `https://www.google.com/maps/place/?q=place_id:${p.place_id}`;
+
+    return `
+      <div class="result-card ${isAdded ? 'added' : ''}" id="rc-${p.place_id}">
+        <div>
+          <div class="result-name">${p.name}</div>
+          <div class="result-addr">${p.formatted_address || ''}</div>
+        </div>
+        <div class="result-meta">
+          ${rating}
+          ${open}
+          ${p.types && p.types.includes('car_repair') ? '<span class="meta-pill blue">🔧 Mecánica</span>' : ''}
+        </div>
+        <div class="result-actions">
+          <button class="add-btn ${isAdded ? 'added-btn' : ''}" 
+            onclick="addFromSearch('${p.place_id}','${escJ(p.name)}','${escJ(p.formatted_address||'')}','${city}')"
+            id="addbtn-${p.place_id}">
+            ${isAdded ? '✓ Añadido' : '＋ Añadir al pipeline'}
+          </button>
+          <a class="maps-btn" href="${mapsUrl}" target="_blank" title="Ver en Maps">📍</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function escJ(s) {
+  return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+}
+
+function addFromSearch(placeId, name, address, city) {
+  if (addedPlaceIds.has(placeId)) return;
+
+  const parts = address.split(',');
+  const ciudadGuess = city || (parts.length > 1 ? parts[parts.length-2].trim() : '');
+
+  leads.unshift({
+    id: Date.now(),
+    placeId,
+    nombre: name,
+    ciudad: ciudadGuess,
+    provincia: '',
+    telefono: '',
+    estado: 'nuevo',
+    maps: `https://www.google.com/maps/place/?q=place_id:${placeId}`,
+    instagram: '',
+    web: '',
+    notas: '',
+    fecha: new Date().toLocaleDateString('es-ES')
+  });
+
+  addedPlaceIds.add(placeId);
+  save();
+
+  const btn = document.getElementById(`addbtn-${placeId}`);
+  const card = document.getElementById(`rc-${placeId}`);
+  if (btn) { btn.textContent = '✓ Añadido'; btn.classList.add('added-btn'); }
+  if (card) card.classList.add('added');
+
+  toast(`✓ ${name} añadido al pipeline`);
+}
+
+function addManual() {
+  const nombre = document.getElementById('m-nombre')?.value.trim();
+  if (!nombre) { toast('⚠️ El nombre es obligatorio'); return; }
+  leads.unshift({
+    id: Date.now(),
+    placeId: null,
+    nombre,
+    ciudad: document.getElementById('m-ciudad')?.value.trim() || '',
+    provincia: '',
+    telefono: document.getElementById('m-telefono')?.value.trim() || '',
+    estado: 'nuevo',
+    maps: '',
+    instagram: document.getElementById('m-instagram')?.value.trim() || '',
+    web: document.getElementById('m-web')?.value.trim() || '',
+    notas: document.getElementById('m-notas')?.value.trim() || '',
+    fecha: new Date().toLocaleDateString('es-ES')
+  });
+  save();
+  toast(`✓ ${nombre} añadido`);
+  ['m-nombre','m-telefono','m-instagram','m-web','m-notas'].forEach(id => {
+    if(document.getElementById(id)) document.getElementById(id).value = '';
+  });
+}
+
+// ── PIPELINE ──
+function save() {
+  localStorage.setItem('koneko-leads-v2', JSON.stringify(leads));
+  updateKPIs();
+  renderPipeline();
+}
+
+function updateKPIs() {
+  document.getElementById('k-total').textContent = leads.length;
+  document.getElementById('k-contactados').textContent = leads.filter(l => ['contactado','respondio','reunion','cerrado'].includes(l.estado)).length;
+  document.getElementById('k-respondieron').textContent = leads.filter(l => ['respondio','reunion','cerrado'].includes(l.estado)).length;
+  document.getElementById('k-reuniones').textContent = leads.filter(l => l.estado === 'reunion').length;
+  document.getElementById('k-cerrados').textContent = leads.filter(l => l.estado === 'cerrado').length;
+}
+
+function setFilter(f, btn) {
+  filter = f;
+  document.querySelectorAll('.fpill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPipeline();
+}
+
+function renderPipeline() {
+  const tbody = document.getElementById('pipelineTbody');
+  const empty = document.getElementById('emptyPipeline');
+  const filtered = filter === 'todos' ? leads : leads.filter(l => l.estado === filter);
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  tbody.innerHTML = filtered.map((l, i) => `
+    <tr>
+      <td style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);">${String(i+1).padStart(2,'0')}</td>
+      <td>
+        <div class="tname">${l.nombre}</div>
+        <div class="tcity">${[l.ciudad, l.provincia].filter(Boolean).join(', ') || '—'}</div>
+      </td>
+      <td>
+        ${l.telefono
+          ? `<a class="phone-a" href="tel:${l.telefono}">${l.telefono}</a>`
+          : '<span style="color:var(--text3)">—</span>'}
+      </td>
+      <td>
+        ${l.maps ? `<a class="ext-a" href="${l.maps}" target="_blank">📍</a>` : ''}
+        ${l.instagram ? `<a class="ext-a" href="https://instagram.com/${l.instagram.replace('@','')}" target="_blank">📸</a>` : ''}
+        ${l.web ? `<a class="ext-a" href="${l.web.startsWith('http')?l.web:'https://'+l.web}" target="_blank">🌐</a>` : ''}
+        ${!l.maps && !l.instagram && !l.web ? '<span style="color:var(--text3);font-size:12px">—</span>' : ''}
+      </td>
+      <td>
+        <div class="sbadge s-${l.estado}">
+          <span class="sdot"></span>
+          <select class="ssel" onchange="changeStatus(${l.id}, this.value)">
+            ${Object.entries(STATUS_LABELS).map(([k,v]) =>
+              `<option value="${k}" ${k===l.estado?'selected':''} style="background:#18181f;color:#ececf1;">${v}</option>`
+            ).join('')}
+          </select>
+        </div>
+      </td>
+      <td>
+        <div class="notes-td" title="${l.notas||''}">${l.notas || '<span style="color:var(--text3)">—</span>'}</div>
+      </td>
+      <td style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);white-space:nowrap;">${l.fecha}</td>
+      <td>
+        <div style="display:flex;gap:5px;">
+          <button class="icon-btn" onclick="openNotes(${l.id})" title="Notas">📝</button>
+          <button class="icon-btn del" onclick="deleteLead(${l.id})" title="Eliminar">✕</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function changeStatus(id, status) {
+  const l = leads.find(x => x.id === id);
+  if (l) { l.estado = status; save(); }
+}
+
+function deleteLead(id) {
+  if (!confirm('¿Eliminar este taller?')) return;
+  const l = leads.find(x => x.id === id);
+  if (l && l.placeId) addedPlaceIds.delete(l.placeId);
+  leads = leads.filter(x => x.id !== id);
+  save();
+  toast('🗑 Eliminado');
+}
+
+function openNotes(id) {
+  editingId = id;
+  const l = leads.find(x => x.id === id);
+  document.getElementById('notesArea').value = l.notas || '';
+  document.getElementById('notesOverlay').classList.add('open');
+}
+
+function saveNotes() {
+  const l = leads.find(x => x.id === editingId);
+  if (l) { l.notas = document.getElementById('notesArea').value; save(); toast('✓ Notas guardadas'); }
+  closeNotes();
+}
+
+function closeNotes() {
+  document.getElementById('notesOverlay').classList.remove('open');
+  editingId = null;
+}
+
+function exportCSV() {
+  if (!leads.length) { toast('Sin leads'); return; }
+  const rows = leads.map(l => [
+    l.nombre, l.ciudad, l.provincia, l.telefono,
+    STATUS_LABELS[l.estado], l.instagram, l.web, l.notas, l.fecha
+  ].map(v => `"${(v||'').replace(/"/g,'""')}"`));
+  const csv = [['Nombre','Ciudad','Provincia','Teléfono','Estado','Instagram','Web','Notas','Fecha'], ...rows]
+    .map(r => r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8;'}));
+  a.download = `koneko-leads-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  toast('📥 CSV exportado');
+}
+
+function clearAll() {
+  if (!confirm('¿Borrar todos los leads?')) return;
+  leads = [];
+  addedPlaceIds = new Set();
+  save();
+  toast('🗑 Pipeline limpiado');
+}
+
+function copyWA() {
+  navigator.clipboard.writeText(`Hola! Soy Luccas de Koneko Ads 👋\n\nMe especializo en captación de clientes para talleres mecánicos con Meta Ads.\n\n¿Tenéis un momento para ver si podría ayudaros a conseguir más clientes este mes?`).then(() => toast('📋 Copiado'));
+}
+
+// ── EMAIL ──
+const TEMPLATES = {
+  frio: {
+    asunto: (t, c) => `Más clientes para ${t} — Sin riesgo`,
+    cuerpo: (t, d, c, obs) => `${d ? 'Hola ' + d + ',' : 'Hola,'}\n\nMe llamo Luccas y soy especialista en captación de clientes para talleres mecánicos en España con Meta Ads (Facebook e Instagram).\n\nVi vuestro taller${c ? ' en ' + c : ''} y${obs ? ' me llamó la atención que ' + obs + '.' : ' me parece que tenéis potencial para crecer.'}\n\nTrabajo exclusivamente con talleres mecánicos, así que entiendo bien vuestro negocio y lo que busca un cliente antes de elegir dónde llevar el coche.\n\nEl sistema que implemento genera solicitudes de presupuesto de clientes nuevos de forma predecible, mes a mes.\n\n¿Os interesaría ver cómo funciona en una llamada de 20 minutos esta semana?\n\nSin compromiso.\n\nSaludos,\nLuccas\nKoneko Ads\nkonekoads.ia@gmail.com`
+  },
+  seguimiento: {
+    asunto: (t, c) => `Seguimiento — Koneko Ads × ${t}`,
+    cuerpo: (t, d, c, obs) => `${d ? 'Hola ' + d + ',' : 'Hola,'}\n\nLa semana pasada os escribí sobre captación de clientes para ${t || 'vuestro taller'}.\n\nEntiendo que estáis ocupados, así que seré breve:\n\n¿Estaríais abiertos a una llamada de 15 minutos para ver si lo que hago encaja con vuestro negocio?\n\nSi no es el momento, no hay problema. Solo quería asegurarme de que recibisteis mi mensaje.\n\nSaludos,\nLuccas\nKoneko Ads`
+  },
+  propuesta: {
+    asunto: (t, c) => `Propuesta concreta para ${t || 'vuestro taller'}`,
+    cuerpo: (t, d, c, obs) => `${d ? 'Hola ' + d + ',' : 'Hola,'}\n\nSoy Luccas de Koneko Ads. Me especializo en una sola cosa: conseguir clientes nuevos para talleres mecánicos con anuncios en Facebook e Instagram.\n\nLo que propongo:\n\n→ Campaña de Meta Ads enfocada en vuestra zona\n→ Sistema de seguimiento de leads\n→ Primeros 30 días sin permanencia\n→ Solo seguís si veis resultados\n\n${obs ? 'Vi que ' + obs + ', lo cual es una ventaja para la captación.\n\n' : ''}¿Hablamos esta semana?\n\nSaludos,\nLuccas\nKoneko Ads\nkonekoads.ia@gmail.com`
+  }
+};
+
+function setTemplate(name, btn) {
+  currentTemplate = name;
+  document.querySelectorAll('.tpl-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('emailPreview').style.display = 'none';
+}
+
+function generateEmail() {
+  const taller = document.getElementById('e-taller').value.trim() || 'vuestro taller';
+  const dueno  = document.getElementById('e-dueno').value.trim();
+  const ciudad = document.getElementById('e-ciudad').value.trim();
+  const obs    = document.getElementById('e-obs').value.trim();
+
+  const tpl = TEMPLATES[currentTemplate];
+  const asunto = tpl.asunto(taller, ciudad);
+  const cuerpo = tpl.cuerpo(taller, dueno, ciudad, obs);
+
+  document.getElementById('emailSubject').textContent = asunto;
+  document.getElementById('emailBody').textContent = cuerpo;
+  document.getElementById('emailPreview').style.display = 'block';
+  toast('✓ Email generado');
+}
+
+function openGmail() {
+  const destino = document.getElementById('e-destino').value.trim();
+  const asunto  = document.getElementById('emailSubject').textContent;
+  const cuerpo  = document.getElementById('emailBody').textContent;
+  const url = `https://mail.google.com/mail/?view=cm&fs=1${destino?'&to='+encodeURIComponent(destino):''}&su=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+  window.open(url, '_blank');
+}
+
+function copyEmail() {
+  const asunto = document.getElementById('emailSubject').textContent;
+  const cuerpo = document.getElementById('emailBody').textContent;
+  navigator.clipboard.writeText(`Asunto: ${asunto}\n\n${cuerpo}`).then(() => toast('📋 Email copiado'));
+}
+
+// ── UTILS ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── INIT ──
+updateKPIs();
+renderPipeline();
+</script>
+</body>
+</html>

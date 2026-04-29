@@ -873,8 +873,6 @@ textarea.inp {
 
 <script>
 // ── CONFIG ──
-const API_KEY = 'AIzaSyCQWYjTMrzEDXe1LwGYWOtrCOqWmrW7RM8';
-const PROXY   = 'https://cors-anywhere.herokuapp.com/';
 
 // ── STATE ──
 let leads = JSON.parse(localStorage.getItem('koneko-leads-v2') || '[]');
@@ -913,11 +911,7 @@ async function searchTalleres() {
 
   try {
     const query = encodeURIComponent(`taller mecanico ${city} España`);
-    // Usamos Places Text Search (nueva API)
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&language=es&key=${API_KEY}`;
-
-    // Necesitamos proxy para evitar CORS desde HTML local
-    const res = await fetch(PROXY + url);
+    const res = await fetch(`/api/places?query=${query}`);
     const data = await res.json();
 
     document.getElementById('loading').classList.remove('show');
@@ -927,64 +921,14 @@ async function searchTalleres() {
       return;
     }
 
-    const places = data.results.slice(0, limit);
-    renderResults(places, city);
+    renderResults(data.results.slice(0, limit), city);
 
   } catch(err) {
     document.getElementById('loading').classList.remove('show');
-    // Fallback: intentar sin proxy
-    tryDirectSearch(city, limit);
+    toast('⚠️ Error al conectar con el servidor');
   }
 }
 
-async function tryDirectSearch(city, limit) {
-  document.getElementById('loading').classList.add('show');
-  try {
-    const query = encodeURIComponent(`taller mecanico ${city} España`);
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&language=es&key=${API_KEY}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    document.getElementById('loading').classList.remove('show');
-
-    if (!data.results || data.results.length === 0) {
-      document.getElementById('noResults').classList.add('show');
-      return;
-    }
-    renderResults(data.results.slice(0, limit), city);
-  } catch(e) {
-    document.getElementById('loading').classList.remove('show');
-    showApiError(city, limit);
-  }
-}
-
-function showApiError(city, limit) {
-  // Si hay problema CORS, mostramos links directos de búsqueda + formulario manual
-  const grid = document.getElementById('resultsGrid');
-  const q = encodeURIComponent(`taller mecanico ${city} España`);
-  grid.innerHTML = `
-    <div style="grid-column:1/-1; background:var(--surface2); border:1px solid var(--border2); border-radius:12px; padding:24px;">
-      <div style="font-size:14px;font-weight:700;margin-bottom:8px;color:var(--yellow);">⚠️ CORS bloqueado — búsqueda directa no disponible desde archivo local</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;">Para usar la API en local necesitas un servidor. Mientras tanto, usa estos links para buscar talleres manualmente y añádelos abajo:</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
-        <a href="https://www.google.com/maps/search/${q}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(52,168,83,0.1);color:#34a853;border:1px solid rgba(52,168,83,0.2);text-decoration:none;font-size:12px;font-weight:700;">📍 Google Maps</a>
-        <a href="https://www.google.com/search?q=${q}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(66,133,244,0.1);color:#4285f4;border:1px solid rgba(66,133,244,0.2);text-decoration:none;font-size:12px;font-weight:700;">🔍 Google</a>
-        <a href="https://www.paginasamarillas.es/search/talleres-mecanicos/all-ma/${encodeURIComponent(city)}/1/" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(245,158,11,0.1);color:var(--yellow);border:1px solid rgba(245,158,11,0.2);text-decoration:none;font-size:12px;font-weight:700;">📒 Páginas Amarillas</a>
-        <a href="https://www.infocif.es/buscar?q=taller+mecanico+${encodeURIComponent(city)}" target="_blank" style="padding:8px 14px;border-radius:8px;background:rgba(168,85,247,0.1);color:var(--purple3);border:1px solid rgba(168,85,247,0.2);text-decoration:none;font-size:12px;font-weight:700;">🏢 Infocif</a>
-      </div>
-
-      <div style="font-size:12px;font-family:'Space Mono',monospace;color:var(--purple3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">// Añadir taller manualmente</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px;">
-        <input class="inp" id="m-nombre" placeholder="Nombre del taller *">
-        <input class="inp" id="m-ciudad" placeholder="Ciudad" value="${city}">
-        <input class="inp" id="m-telefono" placeholder="Teléfono">
-        <input class="inp" id="m-instagram" placeholder="@instagram">
-        <input class="inp" id="m-web" placeholder="Web">
-      </div>
-      <input class="inp" id="m-notas" placeholder="Notas" style="width:100%;margin-bottom:12px;">
-      <button class="btn btn-purple" onclick="addManual()">＋ Añadir al pipeline</button>
-    </div>
-  `;
-}
 
 function renderResults(places, city) {
   const grid = document.getElementById('resultsGrid');
